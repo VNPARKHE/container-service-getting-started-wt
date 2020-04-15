@@ -11,9 +11,9 @@ Watch this [video](https://www.youtube.com/watch?v=wlBhtc31I8c) to learn about p
 
 # Objectives
 
-This lab is an introduction to using Docker containers on Kubernetes in the IBM Cloud Kubernetes Service. By the end of the course, you'll achieve these objectives:
+This lab is an introduction to using containers on Kubernetes in the IBM Cloud Kubernetes Service. By the end of the course, you'll achieve these objectives:
 * Understand core concepts of Kubernetes
-* Build a Docker image and deploy an application on Kubernetes in the IBM Cloud Kubernetes Service
+* Build a container image and deploy an application on Kubernetes in the IBM Cloud Kubernetes Service
 * Control application deployments, while minimizing your time with infrastructure management
 * Add AI services to extend your app
 * Secure and monitor your cluster and app
@@ -53,9 +53,9 @@ Containers allow you to share the host OS. This reduces duplication while still 
 Before we dive into Kubernetes, you need to provision a cluster for your containerized app. Then you won't have to wait for it to be ready for the subsequent labs.
 
 1. You must install the CLIs per https://cloud.ibm.com/docs/containers/cs_cli_install.html. If you do not yet have these CLIs and the Kubernetes CLI, do [lab 0](https://github.com/IBM/container-service-getting-started-wt/tree/master/Lab%200) before starting the course.
-2. If you haven't already, provision a cluster. This can take a few minutes, so let it start first: `ibmcloud ks cluster-create --name <name-of-cluster>`
+2. If you haven't already, provision a cluster. This can take a few minutes, so let it start first: `ibmcloud ks cluster create classic --name <name-of-cluster>`
 3. After creation, before using the cluster, make sure it has completed provisioning and is ready for use. Run `ibmcloud ks clusters` and make sure that your cluster is in state "deployed".
-4. Then use `ibmcloud ks workers <name-of-cluster>` and make sure that all worker nodes are in state "normal" with Status "Ready".
+4. Then use `ibmcloud ks workers --cluster <name-of-cluster>` and make sure that all worker nodes are in state "normal" with Status "Ready".
 
 # Kubernetes and containers: an overview
 

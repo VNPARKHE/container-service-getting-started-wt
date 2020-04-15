@@ -1,8 +1,12 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hw-demo-deployment
 spec:
+  selector:
+    matchLabels:
+      run: hw-demo-health
+      test: hello-world-demo
   replicas: 3
   template:
     metadata:
@@ -13,7 +17,7 @@ spec:
     spec:
       containers:
         - name: hw-demo-container
-          image: "registry.ng.bluemix.net/<namespace>/hello-world:2"
+          image: "us.icr.io/<namespace>/hello-world:2"
           imagePullPolicy: Always
           livenessProbe:
             httpGet:

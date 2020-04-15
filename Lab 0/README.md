@@ -15,7 +15,9 @@ If you already have the CLIs and plug-ins, you can skip this lab and proceed to 
 
 # Install the IBM Cloud command-line interface
 
-1. As a prerequisite for the IBM Cloud Kubernetes Service plug-in, install the [IBM Cloud command-line interface](https://cloud.ibm.com/docs/cli?topic=cloud-cli-ibmcloud-cli). Once installed, you can access IBM Cloud from your command-line with the prefix `ibmcloud`.
+1. As a prerequisite for the IBM Cloud Kubernetes Service plug-in, install the [IBM Cloud command-line interface](https://cloud.ibm.com/docs/cli?topic=cloud-cli-install-ibmcloud-cli). Once installed, you can access IBM Cloud from your command-line with the prefix `ibmcloud`.
+
+
 2. Log in to the IBM Cloud CLI: `ibmcloud login`. 
 3. Enter your IBM Cloud credentials when prompted.
 
@@ -24,7 +26,7 @@ If you already have the CLIs and plug-ins, you can skip this lab and proceed to 
 # Install the IBM Cloud Kubernetes Service plug-in
 
 1. To create Kubernetes clusters and manage worker nodes, install the IBM Cloud Kubernetes Service plug-in:
-   ```ibmcloud plugin install container-service -r Bluemix```
+   ```ibmcloud plugin install container-service -r 'IBM Cloud'```
    
    **Note:** The prefix for running commands by using the IBM Cloud Kubernetes Service plug-in is `ibmcloud ks`.
 
@@ -37,10 +39,10 @@ If you already have the CLIs and plug-ins, you can skip this lab and proceed to 
 
 1. To manage a private image repository, install the IBM Cloud Container Registry plug-in:
 ```
-ibmcloud plugin install container-registry -r Bluemix
+ibmcloud plugin install container-registry -r 'IBM Cloud'
 ```
    
-   Use this plug-in to set up your own namespace in a multi-tenant, highly available, and scalable private image registry that is hosted by IBM, and to store and share Docker images with other users. Docker images are required to deploy containers into a cluster. 
+   Use this plug-in to set up your own namespace in a multi-tenant, highly available, and scalable private image registry that is hosted by IBM, and to store and share container images with other users. Container images are required to deploy containers into a cluster. 
    
    **Note:** The prefix for running registry commands is `ibmcloud cr`.
 
@@ -52,9 +54,9 @@ ibmcloud plugin install container-registry -r Bluemix
 
 To view a local version of the Kubernetes dashboard and to deploy apps into your clusters, you will need to install the Kubernetes CLI that corresponds with your operating system:
 
-* [OS X](https://storage.googleapis.com/kubernetes-release/release/v1.12.7/bin/darwin/amd64/kubectl)
-* [Linux](https://storage.googleapis.com/kubernetes-release/release/v1.12.7/bin/linux/amd64/kubectl)
-* [Windows](https://storage.googleapis.com/kubernetes-release/release/v1.12.7/bin/windows/amd64/kubectl.exe)
+* [OS X](https://storage.googleapis.com/kubernetes-release/release/v1.14.8/bin/darwin/amd64/kubectl)
+* [Linux](https://storage.googleapis.com/kubernetes-release/release/v1.14.8/bin/linux/amd64/kubectl)
+* [Windows](https://storage.googleapis.com/kubernetes-release/release/v1.14.8/bin/windows/amd64/kubectl.exe)
 
 **For Windows users:** Install the Kubernetes CLI in the same directory as the IBM Cloud CLI. This setup saves you some filepath changes when you run commands later.
 

@@ -4,45 +4,33 @@ In this lab, set up an application to leverage the Watson Tone Analyzer service.
 
 # 1. Build the Watson images
 
-1. Log in to IBM Cloud Container Registry.
+1. Build the `watson` image.
 
-   ```ibmcloud cr login```
+   ```ibmcloud cr build -t us.icr.io/<namespace>/watson ./watson```
 
-2. Build the `watson` image.
+   **Tip:** If you run out of registry space, clean up the previous lab's images with this example command:
+      ```ibmcloud cr image-rm us.icr.io/<namespace>/hello-world:2```
 
-   ```docker build -t registry.ng.bluemix.net/<namespace>/watson ./watson```
+2. Build the `watson-talk` image.
 
-3. Push the `watson` image to IBM Cloud Container Registry.
+   ```ibmcloud cr build -t us.icr.io/<namespace>/watson-talk ./watson-talk```
 
-   ```docker push registry.ng.bluemix.net/<namespace>/watson```
-
-   **Tip:** If you run out of registry space, clean up the previous lab's images with this example command: 
-      ```ibmcloud cr image-rm registry.ng.bluemix.net/<namespace>/hello-world:2```
-
-4. Build the `watson-talk` image.
-
-   ```docker build -t registry.ng.bluemix.net/<namespace>/watson-talk ./watson-talk```
-
-5. Push the `watson-talk` image to IBM Cloud Container Registry.
-
-   ```docker push registry.ng.bluemix.net/<namespace>/watson-talk```
-
-6. In watson-deployment.yml, update the image tag with the registry path to the image you created in the following two sections.
+3. In watson-deployment.yml, update the image tag with the registry path to the image you created in the following two sections.
 
    ```yml
        spec:
          containers:
            - name: watson
-             image: "registry.ng.bluemix.net/<namespace>/watson" 
+             image: "us.icr.io/<namespace>/watson"
              # change to the path of the watson image you just pushed
-             # ex: image: "registry.ng.bluemix.net/<namespace>/watson"
+             # ex: image: "us.icr.io/<namespace>/watson"
    ...
        spec:
          containers:
            - name: watson-talk
-             image: "registry.ng.bluemix.net/<namespace>/watson-talk" 
+             image: "us.icr.io/<namespace>/watson-talk"
              # change to the path of the watson-talk image you just pushed
-             # ex: image: "registry.ng.bluemix.net/<namespace>/watson-talk"
+             # ex: image: "us.icr.io/<namespace>/watson-talk"
    ```
 
 
@@ -60,7 +48,7 @@ In order to begin using the Watson Tone Analyzer (the IBM Cloud service for this
 
 # 3. Bind the Watson service to your cluster
 
-1. Run `ibmcloud ks cluster-service-bind <name-of-cluster> default tone` to bind the service to your cluster. This command will create a secret for the service.
+1. Run `ibmcloud ks cluster service bind --cluster <name-of-cluster> --namespace default --service tone` to bind the service to your cluster. This command will create a secret for the service.
 
 2. Verify the secret was created by running `kubectl get secrets`.
 
@@ -104,10 +92,10 @@ By this time you have created pods, services, and volumes for this lab.
 
 2. Get the public IP for the worker node to access the application:
 
-   ```ibmcloud ks workers <name-of-cluster>```
+   ```ibmcloud ks workers --cluster <name-of-cluster>```
 
 3. Now that the you have the container IP and port, go to your favorite web browser and launch the following URL to analyze the text and see output.
- 
+
    ```http://<public-IP>:30080/analyze/"Today is a beautiful day"```
 
 If you can see JSON output on your screen, congratulations! You are done with this lab!

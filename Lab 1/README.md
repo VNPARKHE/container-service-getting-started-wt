@@ -5,10 +5,10 @@ Learn how to push an image of an application to IBM Cloud Container Registry and
 # 0. Install Prerequisite CLIs and Provision a Kubernetes Cluster
 
 If you haven't already:
-1. Install the CLIs and Docker, as described in [Lab 0](../Lab%200/README.md).
+1. Install the CLIs, as described in [Lab 0](../Lab%200/README.md).
 2. Provision a cluster: 
 
-   ```ibmcloud ks cluster-create --name <name-of-cluster>```
+   ```ibmcloud ks cluster create classic --name <name-of-cluster>```
 
 # 1. Push an image to IBM Cloud Container Registry
 
@@ -37,40 +37,32 @@ which your cluster has access.
 
    **Note:** If you have a federated ID, use `ibmcloud login --sso` to log in to the IBM Cloud CLI. You know you have a federated ID when the login fails without the `--sso` and succeeds with the `--sso` option.
 
-4. Run `ibmcloud cr login`, and log in with your IBM Cloud credentials. This will allow you to push images to the IBM Cloud Container Registry.
-
-   **Tip:** This course's commands show the `ng` region. Replace `ng` with the region outputted from the `ibmcloud cr login` command.
-
-5. In order to upload images to the IBM Cloud Container Registry, you first need to create a namespace with the following command: 
+4. In order to upload images to the IBM Cloud Container Registry, you first need to create a namespace with the following command: 
 
    ```ibmcloud cr namespace-add <my_namespace>```
    
-6. Build the Docker image in this directory with a `1` tag:
+5. Build the container image with a `1` tag and push the image to the IBM Cloud Registry:
 
-   ```docker build --tag registry.ng.bluemix.net/<my_namespace>/hello-world:1 .```
+   ```ibmcloud cr build --tag us.icr.io/<my_namespace>/hello-world:1 .```
 
-7. Verify the image is built: 
+6. Verify the image is built: 
 
-   ```docker images```
+   ```ibmcloud cr images```
 
-8. Now push that image up to IBM Cloud Container Registry: 
-
-   ```docker push registry.ng.bluemix.net/<my_namespace>/hello-world:1```
-
-9. If you created your cluster at the beginning of this, make sure it's ready for use. 
+7. If you created your cluster at the beginning of this, make sure it's ready for use. 
    1. Run `ibmcloud ks clusters` and make sure that your cluster is in "Normal" state.  
-   2. Use `ibmcloud ks workers <yourclustername>`, and make sure that all workers are in "Normal" state with "Ready" status.
+   2. Use `ibmcloud ks workers --cluster <yourclustername>`, and make sure that all workers are in "Normal" state with "Ready" status.
    3. Make a note of the public IP of the worker.
 
 You are now ready to use Kubernetes to deploy the hello-world application.
 
 # 2. Deploy your application
 
-1. Run `ibmcloud ks cluster-config <yourclustername>`, and set the variables based on the output of the command.
+1. Run `ibmcloud ks cluster config --cluster <yourclustername>`.
 
 2. Start by running your image as a deployment: 
 
-   ```kubectl run hello-world --image=registry.ng.bluemix.net/<my_namespace>/hello-world:1```
+   ```kubectl run hello-world --image=us.icr.io/<my_namespace>/hello-world:1```
 
    This action will take a bit of time. To check the status of your deployment, you can use `kubectl get pods`.
 
@@ -92,7 +84,7 @@ You are now ready to use Kubernetes to deploy the hello-world application.
 
    Take note of the "NodePort:" line as `<nodeport>`
 
-5. Run `ibmcloud ks workers <name-of-cluster>`, and note the public IP as `<public-IP>`.
+5. Run `ibmcloud ks workers --cluster <name-of-cluster>`, and note the public IP as `<public-IP>`.
 
 6. You can now access your container/service using `curl <public-IP>:<nodeport>` (or your favorite web browser). If you see, "Hello world! Your app is up and running in a cluster!" you're done!
 
